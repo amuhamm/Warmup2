@@ -1,5 +1,6 @@
 package com.ezmoizy.abdulmoiz.warmup2;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.GmapFragment;
+import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.MainFragment;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +46,10 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentManager fragManager = getFragmentManager();
+        fragManager.beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
+
     }
 
     @Override
@@ -86,27 +94,26 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.nav_camara) {
             // Handle the camera action
-            explicitIntent = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(explicitIntent);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+
         } else if (id == R.id.nav_gallery) {
-            explicitIntent = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(explicitIntent);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
 
         } else if (id == R.id.nav_slideshow) {
-            explicitIntent = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(explicitIntent);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+
 
         } else if (id == R.id.nav_manage) {
-            explicitIntent = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(explicitIntent);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
+
 
         } else if (id == R.id.nav_share) {
-            explicitIntent = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(explicitIntent);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+
 
         } else if (id == R.id.nav_send) {
-            explicitIntent = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(explicitIntent);
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
+
 
         }
 

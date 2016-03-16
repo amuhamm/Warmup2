@@ -41,18 +41,16 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
 
         mMap = googleMap;
 
-        // Add a marker on McMaster U and move the camera
-        LatLng mcmaster = new LatLng(43.261926, -79.919182);
-
-        Marker mcmaster_marker = mMap.addMarker(new MarkerOptions().position(mcmaster).title("McMaster University"));
-
-        // Move the camera instantly to location with a zoom of 17.
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mcmaster, 7));
-
         //made new markers centered on universities
         Marker McMaster = addNewMarker(43.261926,-79.919182,"McMaster University");
         Marker UofT = addNewMarker(43.662653, -79.396356, "University of Toronto");
         Marker Wloo = addNewMarker(43.472040, -80.544804, "University of Waterloo");
+        Marker Guelph = addNewMarker(43.531334, -80.226035, "University of Guelph");
+        Marker Western = addNewMarker(43.009307, -81.273658, "Wuck Festern");
+
+        // Move the camera instantly to location with a zoom of 8
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(McMaster.getPosition(), 8));
+
 
     }
 

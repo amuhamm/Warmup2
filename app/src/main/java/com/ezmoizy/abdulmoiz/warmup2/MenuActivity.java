@@ -29,11 +29,20 @@ public class MenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton next_class_fab = (FloatingActionButton) findViewById(R.id.class_fab);
+        next_class_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "This button will do something... soon.", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "This button will take you to your next class.", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        FloatingActionButton location_fab = (FloatingActionButton) findViewById(R.id.location_fab);
+        location_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "This button will center the map on your location.", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
         });

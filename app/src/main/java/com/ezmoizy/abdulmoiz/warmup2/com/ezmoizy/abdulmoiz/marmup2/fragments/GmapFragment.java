@@ -8,14 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ezmoizy.abdulmoiz.warmup2.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by Moiz on 15/03/2016.
  */
 public class GmapFragment extends Fragment implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
 
     @Nullable
     @Override
@@ -26,12 +32,34 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MapFragment fragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map);
+        MapFragment fragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.mapfrag);
         fragment.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        mMap = googleMap;
+
+        // Add a marker on McMaster U and move the camera
+        LatLng mcmaster = new LatLng(43.261926, -79.919182);
+
+        Marker mcmaster_marker = mMap.addMarker(new MarkerOptions().position(mcmaster).title("McMaster University"));
+
+        // Move the camera instantly to location with a zoom of 17.
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mcmaster, 7));
+
+        //made new markers centered on universities
+        Marker McMaster = addNewMarker(43.261926,-79.919182,"McMaster University");
+        Marker UofT = addNewMarker(43.662653, -79.396356, "University of Toronto");
+        Marker Wloo = addNewMarker(43.472040, -80.544804, "University of Waterloo");
+
+    }
+
+    public Marker addNewMarker(Double lat, Double lng, String title){
+        Marker newMarker = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat, lng))
+                .title(title));
+        return newMarker;
     }
 }

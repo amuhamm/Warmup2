@@ -18,9 +18,25 @@
 
     <include layout="@layout/content_menu" />
 
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
+    <android.support.design.widget.FloatingActionButton
+
+        android:id="@+id/class_fab"
+        android:src="@android:drawable/ic_menu_directions"
+        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:layout_alignStart="@+id/location_fab" />
+
+    <android.support.design.widget.FloatingActionButton
+
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom|left"
+        android:id="@+id/location_fab"
+        android:layout_above="@+id/class_fab"
+        android:layout_marginBottom="25dp"
+        app:backgroundTint="@color/fab"
+        android:src="@android:drawable/ic_menu_compass"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

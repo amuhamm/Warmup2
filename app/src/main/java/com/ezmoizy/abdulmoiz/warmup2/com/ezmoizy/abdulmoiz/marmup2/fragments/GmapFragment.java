@@ -45,12 +45,10 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
         Marker McMaster = addNewMarker(43.261926,-79.919182,"McMaster University");
         Marker UofT = addNewMarker(43.662653, -79.396356, "University of Toronto");
         Marker Wloo = addNewMarker(43.472040, -80.544804, "University of Waterloo");
-        Marker Guelph = addNewMarker(43.531334, -80.226035, "University of Guelph");
         Marker Western = addNewMarker(43.009307, -81.273658, "Wuck Festern");
 
         // Move the camera instantly to location with a zoom of 8
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(McMaster.getPosition(), 8));
-
 
     }
 
@@ -59,5 +57,10 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
                 .position(new LatLng(lat, lng))
                 .title(title));
         return newMarker;
+    }
+
+    public void centerMap(Double lat, Double lng){
+        LatLng center = new LatLng(lat, lng);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 17));
     }
 }

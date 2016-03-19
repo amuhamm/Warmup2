@@ -15,11 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.BuildingsIndexFragment;
 import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.GmapFragment;
 import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.MainFragment;
 
-public class MenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    FloatingActionButton next_class_fab;
+    FloatingActionButton location_fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,21 +32,19 @@ public class MenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton next_class_fab = (FloatingActionButton) findViewById(R.id.class_fab);
+        next_class_fab = (FloatingActionButton) findViewById(R.id.class_fab);
         next_class_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "This button will take you to your next class.", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                onNextPressed(view);
             }
         });
 
-        FloatingActionButton location_fab = (FloatingActionButton) findViewById(R.id.location_fab);
+        location_fab = (FloatingActionButton) findViewById(R.id.location_fab);
         location_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "This button will center the map on your location.", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                centerLocationPressed(view);
             }
         });
 
@@ -104,25 +105,27 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_camara) {
             // Handle the camera action
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+            setNavButtonsVisibility(false);
 
         } else if (id == R.id.nav_gallery) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
+            setNavButtonsVisibility(true);
 
         } else if (id == R.id.nav_slideshow) {
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
-
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new BuildingsIndexFragment()).commit();
+            setNavButtonsVisibility(false);
 
         } else if (id == R.id.nav_manage) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
-
+            setNavButtonsVisibility(true);
 
         } else if (id == R.id.nav_share) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
-
+            setNavButtonsVisibility(false);
 
         } else if (id == R.id.nav_send) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
-
+            setNavButtonsVisibility(true);
 
         }
 
@@ -130,4 +133,36 @@ public class MenuActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void onNextPressed(View view) {
+        Snackbar.make(view, "Added new location.", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
+
+        //it worked!!!
+        GmapFragment map_fragment = (GmapFragment) getFragmentManager().findFragmentById(R.id.content_frame);
+        map_fragment.addNewMarker(43.531334, -80.226035, "University of Guelph");
+
+
+    }
+
+    public void centerLocationPressed(View view) {
+        Snackbar.make(view, "This button will center the map on your location.", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
+
+        GmapFragment map_fragment = (GmapFragment) getFragmentManager().findFragmentById(R.id.content_frame);
+        map_fragment.centerMap(43.261926, -79.919182);
+
+    }
+
+
+    public void setNavButtonsVisibility(Boolean n){
+        if(next_class_fab.isShown() && n == false){
+            next_class_fab.hide();
+            location_fab.hide();
+        }  else if (!next_class_fab.isShown() && n==true){
+            next_class_fab.show();
+            location_fab.show();
+        }
+    }
+
 }

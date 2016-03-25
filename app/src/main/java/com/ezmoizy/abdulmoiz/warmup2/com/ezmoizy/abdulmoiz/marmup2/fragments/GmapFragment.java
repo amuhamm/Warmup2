@@ -63,4 +63,7 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
         LatLng center = new LatLng(lat, lng);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 17));
     }
+
+
+
 }

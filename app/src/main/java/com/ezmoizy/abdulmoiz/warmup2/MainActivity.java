@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             "Togo Salmon Hall TSH",
             "University Hall"};
 
+    String[][] location = {{"name", "lat", "long"}, {"name"}, {"lat"}, {"long"}};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,8 +251,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void plotLocation(){
         GmapFragment map_fragment = (GmapFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-        //map_fragment.addNewMarker(43.531334, -80.226035, "University of Guelph");
-        map_fragment.navigatorTest();
+        map_fragment.addNewMarker(43.260854, -79.920277, "JHE");
+        //map_fragment.navigatorTest();
+
     }
 
 

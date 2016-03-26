@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.ezmoizy.abdulmoiz.warmup2.R;
 
-/**
+/*
  * Created by Moiz on 15/03/2016.
  */
 public class NavButtonsFragment extends Fragment {

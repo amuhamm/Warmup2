@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ezmoizy.abdulmoiz.warmup2.R;
+import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.warmup2.mapNavigator.Navigator;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -62,6 +63,20 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
     public void centerMap(Double lat, Double lng){
         LatLng center = new LatLng(lat, lng);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 17));
+    }
+
+    //testing out map navigator library
+    public void navigatorTest(){
+        LatLng startLocation = new LatLng(43.260870, -79.920115);
+        LatLng endLocation = new LatLng(43.262884, -79.918016);
+        LatLng middle = new LatLng((startLocation.latitude + endLocation.latitude)/2,(startLocation.longitude + endLocation.longitude) / 2 );
+        mMap.addMarker(new MarkerOptions().position(endLocation).title("Destination"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(endLocation));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 17));
+
+        Navigator nav = new Navigator(mMap,startLocation,endLocation);
+        nav.setMode(3,1);
+        nav.findDirections(true);
     }
 
 

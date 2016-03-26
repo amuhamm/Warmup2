@@ -18,6 +18,7 @@ import android.view.View;
 import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.BuildingsIndexFragment;
 import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.GmapFragment;
 import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.MainFragment;
+import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.SearchBar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragManager = getFragmentManager();
         fragManager.beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
+        fragManager.beginTransaction().replace(R.id.search_frame, new SearchBar()).commit();
+
+        searchFeature();
 
     }
 
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_gallery) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new GmapFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.search_frame, new SearchBar()).commit();
             setNavButtonsVisibility(true);
 
         } else if (id == R.id.nav_slideshow) {
@@ -140,7 +145,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //it worked!!!
         GmapFragment map_fragment = (GmapFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-        map_fragment.addNewMarker(43.531334, -80.226035, "University of Guelph");
+        //map_fragment.addNewMarker(43.531334, -80.226035, "University of Guelph");
+        map_fragment.navigatorTest();
 
 
     }
@@ -163,6 +169,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             next_class_fab.show();
             location_fab.show();
         }
+    }
+
+    public void searchFeature(){
+
+        //input search bar feature here
+
     }
 
 }

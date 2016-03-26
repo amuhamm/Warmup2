@@ -12,7 +12,17 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/search_frame">
+
     </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="57dp"
+        android:id="@+id/search_frame"
+        android:background="#ceffffff"></FrameLayout>
 
 </RelativeLayout>

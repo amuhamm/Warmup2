@@ -61,6 +61,10 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
         return newMarker;
     }
 
+    public void removeAllMarkers(){
+        mMap.clear();
+    }
+
     public void centerMap(Double lat, Double lng){
         LatLng center = new LatLng(lat, lng);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 17));

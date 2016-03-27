@@ -1,7 +1,8 @@
 package com.ezmoizy.abdulmoiz.warmup2;
 
-/**
- * Created by Moiz on 25/03/2016.
+/*
+ * This class is to represent each Location object.
+ * Currently only represents buildings based on the BUILDINGS array.
  */
 public class Location {
 
@@ -25,6 +26,39 @@ public class Location {
         //to include room and building level data in future releases
     }
 
+    public static void setLat(long lat) {
+        Location.lat = lat;
+    }
 
+    public static void setLng(long lng) {
+        Location.lng = lng;
+    }
 
+    public static void setName(String name) {
+        Location.name = name;
+    }
+
+    public static long getLat() {
+        return lat;
+    }
+
+    public static long getLng() {
+        return lng;
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static String getDescription() {
+        return description;
+    }
+
+    public static String[] getBuilding_level() {
+        return building_level;
+    }
+
+    public static String[] getRooms() {
+        return rooms;
+    }
 }

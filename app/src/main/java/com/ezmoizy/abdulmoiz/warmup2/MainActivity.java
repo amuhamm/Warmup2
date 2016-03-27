@@ -19,7 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
 import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.BuildingsIndexFragment;
 import com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments.GmapFragment;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             "Commons Building",
             "Communications Research Library",
             "David Braley Athletics Centre DBAC",
-            "Degroote School Of Business",
+            "Degroote School Of Business DSB",
             "ET Clarke Centre",
             "General Sciences",
             "Gilmour Hall GH",
@@ -44,17 +43,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             "HG Thode Library",
             "Information Technology Building ITB",
             "Institute For Applied Health Sciences IAHS",
-            "Ivor Wynne Centre",
+            "Ivor Wynne Centre IWC",
             "John Hodgins Building JHE",
             "Kenneth Taylor Hall KTH)",
-            "Life Sciences Building",
+            "Life Sciences Building LSB",
             "McMaster University Student Centre MUSC",
             "Michael DeGroote Centre for Learning and Discovery MDCL",
             "Mills Library",
             "Museum Of Art",
-            "Nuclear Research Building",
+            "Nuclear Research Building NRB",
             "Psychology Building",
-            "Refectory",
             "Ron Joyce Stadium",
             "T13",
             "T28",
@@ -62,6 +60,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             "Tandem Accelerator",
             "Togo Salmon Hall TSH",
             "University Hall"};
+
+    private static double[][] BUILDING_LOCATIONS = {{43.263945, -79.919631},
+            {43.260480, -79.921781},
+            {43.261905, -79.920228},
+            {43.263840, -79.918396},
+            {43.265533, -79.919194},
+            {43.259150, -79.919313},
+            {43.265071, -79.916544},
+            {43.263983, -79.916418},
+            {43.261769, -79.922046},
+            {43.262337, -79.921333},
+            {43.263172, -79.918529},
+            {43.263192, -79.920048},
+            {43.260876, -79.922310},
+            {43.258751, -79.920896},
+            {43.259777, -79.920398},
+            {43.265683, -79.914497},
+            {43.260867, -79.920181},
+            {43.264001, -79.916836},
+            {43.260953, -79.917795},
+            {43.263157, -79.917891},
+            {43.261222, -79.916954},
+            {43.262840, -79.917736},
+            {43.262636, -79.918135},
+            {43.261313, -79.921058},
+            {43.259781, -79.919677},
+            {43.266341, -79.916979},
+            {43.258656, -79.919534},
+            {43.265561, -79.917821},
+            {43.265636, -79.918380},
+            {43.262027, -79.921188},
+            {43.263450, -79.918986}};
+
+
 
     String[][] location = {{"name", "lat", "long"}, {"name"}, {"lat"}, {"long"}};
 
@@ -221,10 +253,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void searchFeature(){
 
         //input search bar feature here
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        final AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
 
         // Create an ArrayAdapter containing country names
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.list_item, BUILDINGS);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.list_item, BUILDINGS);
 
         // Set the adapter for the AutoCompleteTextView
         textView.setAdapter(adapter);
@@ -235,9 +267,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 //temporary toast
-                Toast.makeText(getApplicationContext(), "Item selected: " + arg0.getAdapter().getItem(arg2), Toast.LENGTH_SHORT).show();
                 hideSoftKeyboard(MainActivity.this);
-                plotLocation();
+                for(int i = 0; i < BUILDING_LOCATIONS.length; i++){
+                    if(BUILDINGS[i] == adapter.getItem(arg2).toString()){
+                        plotLocation(BUILDINGS[i], BUILDING_LOCATIONS[i]);
+                        break;
+                    }
+                }
+
             }
         });
 
@@ -249,9 +286,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-    public void plotLocation(){
+    public void plotLocation(String name, double[] location){
         GmapFragment map_fragment = (GmapFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-        map_fragment.addNewMarker(43.260854, -79.920277, "JHE");
+        //map_fragment.removeAllMarkers();
+        map_fragment.addNewMarker(location[0], location[1], name);
+        map_fragment.centerMap(location[0], location[1]);
+
+
+        //method below is to test out map Navigator library
         //map_fragment.navigatorTest();
 
     }

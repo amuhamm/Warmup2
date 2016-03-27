@@ -94,10 +94,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {43.263450, -79.918986}};
 
 
-
-    String[][] location = {{"name", "lat", "long"}, {"name"}, {"lat"}, {"long"}};
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    //Method that handles the clicks of each menu item in the navigation Drawer
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -238,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    //Show or hide the fab buttons
     public void setNavButtonsVisibility(Boolean n){
         if(next_class_fab.isShown() && n == false){
             next_class_fab.hide();
@@ -248,8 +246,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
     //Method to enable autocomplete feature for search bar
+    //Also calls plotLocation() to plot the clicked location once searched for
     public void searchFeature(){
 
         //input search bar feature here
@@ -263,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            // Display a Toast Message when the user clicks on an item in the AutoCompleteTextView
+
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 //temporary toast
@@ -286,16 +284,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
+    //Plots location on the map fragment
     public void plotLocation(String name, double[] location){
         GmapFragment map_fragment = (GmapFragment) getFragmentManager().findFragmentById(R.id.content_frame);
-        //map_fragment.removeAllMarkers();
+        map_fragment.removeAllMarkers();
         map_fragment.addNewMarker(location[0], location[1], name);
         map_fragment.centerMap(location[0], location[1]);
-
-
-        //method below is to test out map Navigator library
-        //map_fragment.navigatorTest();
-
     }
 
 

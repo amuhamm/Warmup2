@@ -1,6 +1,7 @@
 package com.ezmoizy.abdulmoiz.warmup2.com.ezmoizy.abdulmoiz.marmup2.fragments;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -37,27 +40,27 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
         fragment.getMapAsync(this);
     }
 
+    //This method is called once the Map is ready to be interacted with
+    //Once ready the map is centered onto McMaster and zoomed in
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
 
-        //made new markers centered on universities
-        //Marker McMaster = addNewMarker(43.261926,-79.919182,"McMaster University");
+        //McMaster University coordinates: 43.261926,-79.919182
         LatLng center = new LatLng(43.261926,-79.919182);
-        Marker UofT = addNewMarker(43.662653, -79.396356, "University of Toronto");
-        Marker Wloo = addNewMarker(43.472040, -80.544804, "University of Waterloo");
-        Marker Western = addNewMarker(43.009307, -81.273658, "Wuck Festern");
 
         // Move the camera instantly to location with a zoom of 8
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 8));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 17));
 
     }
 
+    //Adds a new marker and shows that markers info window
     public Marker addNewMarker(Double lat, Double lng, String title){
         Marker newMarker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
                 .title(title));
+        newMarker.showInfoWindow();
         return newMarker;
     }
 
@@ -65,15 +68,25 @@ public class GmapFragment extends Fragment implements OnMapReadyCallback {
         mMap.clear();
     }
 
+    //A public method allows you to center the map at a location
     public void centerMap(Double lat, Double lng){
         LatLng center = new LatLng(lat, lng);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 17));
     }
 
-    //testing out map navigator library
+    // Testing out map navigator library
+    //   This method will assume your starting location is at John Hodgins Engineering Building (JHE)
+    //   and that your end location is Mills Library. It will draw a path following available walking routes
+    //   from outlined starting and end locations
     public void navigatorTest(){
+        removeAllMarkers();
         LatLng startLocation = new LatLng(43.260870, -79.920115);
-        LatLng endLocation = new LatLng(43.262884, -79.918016);
+        Circle circle = mMap.addCircle(new CircleOptions()
+                .center(new LatLng(43.260870, -79.920115))
+                .radius(10)
+                .strokeColor(Color.GREEN));
+
+        LatLng endLocation = new LatLng(43.265071, -79.916544);
         LatLng middle = new LatLng((startLocation.latitude + endLocation.latitude)/2,(startLocation.longitude + endLocation.longitude) / 2 );
         mMap.addMarker(new MarkerOptions().position(endLocation).title("Destination"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(endLocation));
